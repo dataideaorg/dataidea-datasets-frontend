@@ -1,7 +1,19 @@
 import axios from 'axios';
 import { Dataset, Category } from '../types';
 
-const API_URL = 'http://localhost:8000/api';
+// Determine the API base URL based on environment
+const getApiBaseUrl = () => {
+  // If in development, use local API
+  if (import.meta.env.DEV) {
+    return 'http://localhost:8000/api';
+  }
+  
+  // For GitHub Pages deployment, use the live API
+  // Replace this with your actual production API URL when available
+  return 'https://dataidea-api.yourdomain.com/api';
+};
+
+const API_URL = getApiBaseUrl();
 
 const api = axios.create({
   baseURL: API_URL,
