@@ -14,8 +14,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  useMediaQuery,
-  useTheme
 } from '@mui/material';
 import { 
   Search as SearchIcon,
@@ -34,8 +32,6 @@ type LayoutProps = {
 function Layout({ children }: LayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
@@ -47,6 +43,7 @@ function Layout({ children }: LayoutProps) {
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
       setSearchQuery('');
+      setMobileOpen(false);
     }
   };
 
@@ -58,11 +55,39 @@ function Layout({ children }: LayoutProps) {
   ];
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2, color: 'primary.main', fontWeight: 'bold' }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Typography variant="h6" sx={{ my: 2, color: 'primary.main', fontWeight: 'bold', fontFamily: 'DM Sans, sans-serif' }}>
         DATAIDEA
       </Typography>
-      <List>
+      
+      {/* Search box for mobile */}
+      <Box sx={{ px: 2, mb: 2 }}>
+        <Box component="form" onSubmit={handleSearch} sx={{ display: 'flex' }}>
+          <TextField
+            size="small"
+            fullWidth
+            placeholder="Search datasets..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            sx={{ 
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 2,
+              }
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton type="submit" edge="end" color="primary">
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+      </Box>
+      
+      <List sx={{ flexGrow: 1 }}>
         {navItems.map((item) => (
           <ListItem key={item.name} disablePadding>
             <ListItemButton 
@@ -73,29 +98,49 @@ function Layout({ children }: LayoutProps) {
                 '&:hover': {
                   bgcolor: 'primary.light',
                   color: 'primary.main',
-                }
+                },
+                py: 1.5,
               }}
             >
               <Box sx={{ mr: 1 }}>{item.icon}</Box>
-              <ListItemText primary={item.name} />
+              <ListItemText 
+                primary={item.name} 
+                primaryTypographyProps={{ 
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontWeight: 500
+                }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
+      
+      <Box sx={{ p: 2, borderTop: '1px solid rgba(0,0,0,0.1)' }}>
+        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+          © {new Date().getFullYear()} DATAIDEA
+        </Typography>
+      </Box>
     </Box>
   );
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      minHeight: '100vh',
+      height: '100%', 
+      width: '100%',
+      overflow: 'hidden',
+    }}>
       <AppBar position="sticky" sx={{ bgcolor: 'white', boxShadow: 1 }}>
         <Container maxWidth="xl">
-          <Toolbar>
+          <Toolbar sx={{ px: { xs: 1, sm: 2 } }}>
             <IconButton
               color="primary"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: 'none' } }}
+              sx={{ mr: 1, display: { md: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
@@ -107,6 +152,7 @@ function Layout({ children }: LayoutProps) {
                 mr: 2,
                 display: { xs: 'none', sm: 'flex' },
                 fontWeight: 700,
+                fontFamily: 'DM Sans, sans-serif',
                 color: 'primary.main',
                 textDecoration: 'none',
                 alignItems: 'center'
@@ -120,9 +166,10 @@ function Layout({ children }: LayoutProps) {
               component={Link}
               to="/"
               sx={{
-                mr: 2,
+                mr: 1,
                 display: { xs: 'flex', sm: 'none' },
                 fontWeight: 700,
+                fontFamily: 'DM Sans, sans-serif',
                 color: 'primary.main',
                 textDecoration: 'none',
                 alignItems: 'center'
@@ -140,6 +187,7 @@ function Layout({ children }: LayoutProps) {
                   startIcon={item.icon}
                   sx={{ 
                     color: 'text.primary',
+                    fontFamily: 'DM Sans, sans-serif',
                     '&:hover': {
                       bgcolor: 'transparent',
                       color: 'primary.main',
@@ -151,9 +199,17 @@ function Layout({ children }: LayoutProps) {
               ))}
             </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <Box component="form" onSubmit={handleSearch} sx={{ display: 'flex' }}>
+            <Box 
+              component="form" 
+              onSubmit={handleSearch} 
+              sx={{ 
+                display: { xs: 'none', sm: 'flex' },
+                width: { sm: '200px', md: '300px' }
+              }}
+            >
               <TextField
                 size="small"
+                fullWidth
                 placeholder="Search datasets..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -173,6 +229,15 @@ function Layout({ children }: LayoutProps) {
                 }}
               />
             </Box>
+            
+            {/* Search icon for mobile */}
+            <IconButton
+              color="primary"
+              sx={{ display: { sm: 'none' } }}
+              onClick={handleDrawerToggle}
+            >
+              <SearchIcon />
+            </IconButton>
           </Toolbar>
         </Container>
       </AppBar>
@@ -186,13 +251,27 @@ function Layout({ children }: LayoutProps) {
           }}
           sx={{
             display: { xs: 'block', md: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+            '& .MuiDrawer-paper': { 
+              boxSizing: 'border-box', 
+              width: '100%', 
+              maxWidth: '300px',
+              height: '100%'
+            },
           }}
         >
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ flexGrow: 1 }}>
+      <Box 
+        component="main" 
+        sx={{ 
+          flexGrow: 1, 
+          width: '100%',
+          overflowX: 'hidden',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch'
+        }}
+      >
         {children}
       </Box>
       <Box 
@@ -205,7 +284,11 @@ function Layout({ children }: LayoutProps) {
         }}
       >
         <Container maxWidth="lg">
-          <Typography variant="body2" align="center">
+          <Typography 
+            variant="body2" 
+            align="center" 
+            sx={{ fontFamily: 'DM Sans, sans-serif' }}
+          >
             © {new Date().getFullYear()} DATAIDEA - Free Open Datasets for Data Analysis and Machine Learning
           </Typography>
         </Container>

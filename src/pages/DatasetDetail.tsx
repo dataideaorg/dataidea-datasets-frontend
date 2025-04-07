@@ -9,15 +9,15 @@ import {
   Chip,
   Button,
   Divider,
-  Grid,
+  // Grid,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableRow,
   Breadcrumbs,
-  Card,
-  CardContent,
+  // Card,
+  // CardContent,
   Tabs,
   Tab,
   Link as MuiLink
@@ -136,7 +136,7 @@ function DatasetDetail() {
     }
   };
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
 

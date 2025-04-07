@@ -1,8 +1,61 @@
+/* Reset default styles */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Fix iOS height issues */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Remove blue highlight on mobile touches */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth scrolling */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Add space at the bottom of scrollable content for mobile */
+.MuiContainer-root {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #008374;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #006056;
+}
+
+/* Fix for mobile navigation */
+@media (max-width: 600px) {
+  .MuiToolbar-root {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 
 .logo {

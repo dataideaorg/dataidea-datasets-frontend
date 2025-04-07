@@ -16,9 +16,7 @@ import {
   Breadcrumbs,
   SelectChangeEvent,
   Paper,
-  IconButton,
   Stack,
-  Divider
 } from '@mui/material';
 import { 
   Search as SearchIcon,
@@ -119,7 +117,7 @@ function Datasets() {
   const currentDatasets = filteredDatasets.slice(indexOfFirstDataset, indexOfLastDataset);
   const totalPages = Math.ceil(filteredDatasets.length / datasetsPerPage);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

@@ -10,7 +10,7 @@ const getApiBaseUrl = () => {
   
   // For GitHub Pages deployment, use the live API
   // Replace this with your actual production API URL when available
-  return 'https://dataidea-api.yourdomain.com/api';
+  return 'https://dataidea.pythonanywhere.com/api';
 };
 
 const API_URL = getApiBaseUrl();
