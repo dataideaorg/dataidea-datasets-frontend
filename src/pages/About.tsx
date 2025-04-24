@@ -109,13 +109,13 @@ function About() {
           </Typography>
           <Divider sx={{ mb: 3 }} />
           <Typography variant="body1" sx={{ mb: 2 }}>
-            DATAIDEA was created to solve a common problem in the data science community: access to quality datasets. 
-            We believe that data should be freely available to everyone, regardless of their background or resources.
+            DATAIDEA was created to solve a common problem in the data science community: Access to quality, organized (and free) learning materials. 
+            Learning Data Science is hard, getting resources like datasets shouldn't be. 
           </Typography>
           <Typography variant="body1">
-            Our mission is to collect, curate, and distribute high-quality datasets that can be used for 
+            Our mission is to collect, curate, and distribute high-quality learning materials that can be used for 
             education, research, and development of data-driven applications. By providing easy access to diverse 
-            datasets, we aim to foster innovation and accelerate progress in fields like machine learning, 
+            learning materials, we aim to foster innovation and accelerate progress in fields like machine learning, 
             data visualization, and statistical analysis.
           </Typography>
         </Box>
