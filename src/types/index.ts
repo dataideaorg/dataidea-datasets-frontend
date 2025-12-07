@@ -18,13 +18,13 @@ export interface Dataset {
   title: string;
   slug: string;
   description: string;
-  file: string;
+  file: string;  // External URL to dataset (Kaggle, GitHub, Google Drive, etc.)
   file_size?: number;
   file_type?: string;
   categories: Category[];
   tags: string;
   author: User;
-  source_url?: string;
+  source_url?: string;  // Original source URL for attribution (if different from file)
   license?: string;
   download_count: number;
   created_at: string;

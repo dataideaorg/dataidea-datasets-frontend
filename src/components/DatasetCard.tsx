@@ -1,16 +1,16 @@
-import { 
-  Card, 
-  CardContent, 
-  CardActions, 
-  Typography, 
-  Button, 
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
   Chip,
   Box,
   Tooltip,
   CardActionArea
 } from '@mui/material';
-import { 
-  CloudDownload as DownloadIcon, 
+import {
+  CloudDownload as DownloadIcon,
   CalendarMonth as CalendarIcon,
   Visibility as ViewIcon,
   Person as PersonIcon
@@ -19,6 +19,9 @@ import { Link } from 'react-router-dom';
 import { Dataset } from '../types';
 import { useState } from 'react';
 import { incrementDownload } from '../utils/api';
+import ExternalSourceBadge from './ExternalSourceBadge';
+import ExternalLinkDialog from './ExternalLinkDialog';
+import { isExternalLink } from '../utils/externalSources';
 
 interface DatasetCardProps {
   dataset: Dataset;
@@ -26,7 +29,9 @@ interface DatasetCardProps {
 
 function DatasetCard({ dataset }: DatasetCardProps) {
   const [downloadCount, setDownloadCount] = useState(dataset.download_count);
-  
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const isExternal = isExternalLink(dataset.file);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -39,6 +44,25 @@ function DatasetCard({ dataset }: DatasetCardProps) {
   const handleDownload = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // Show warning dialog for external links
+    if (isExternal) {
+      setDialogOpen(true);
+      return;
+    }
+
+    // Direct download for internal files
+    try {
+      const newCount = await incrementDownload(dataset.slug);
+      setDownloadCount(newCount);
+      window.open(dataset.file, '_blank');
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
+  };
+
+  const handleConfirmExternalDownload = async () => {
+    setDialogOpen(false);
     try {
       const newCount = await incrementDownload(dataset.slug);
       setDownloadCount(newCount);
@@ -96,19 +120,22 @@ function DatasetCard({ dataset }: DatasetCardProps) {
         sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}
       >
         <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-            <Chip 
-              label={dataset.file_type || 'Unknown'}
-              size="small"
-              sx={{
-                bgcolor: getFileTypeColor(),
-                color: 'white',
-                fontWeight: 'bold'
-              }}
-            />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1, flexWrap: 'wrap', gap: 0.5 }}>
+            <Box sx={{ display: 'flex', gap: 0.5 }}>
+              <Chip
+                label={dataset.file_type || 'Unknown'}
+                size="small"
+                sx={{
+                  bgcolor: getFileTypeColor(),
+                  color: 'white',
+                  fontWeight: 'bold'
+                }}
+              />
+              <ExternalSourceBadge url={dataset.file} size="small" />
+            </Box>
             <Tooltip title="Downloads">
-              <Chip 
-                icon={<DownloadIcon fontSize="small" />} 
+              <Chip
+                icon={<DownloadIcon fontSize="small" />}
                 label={downloadCount}
                 size="small"
                 variant="outlined"
@@ -195,6 +222,15 @@ function DatasetCard({ dataset }: DatasetCardProps) {
           Download ({renderFileSize()})
         </Button>
       </CardActions>
+
+      {/* External Link Warning Dialog */}
+      <ExternalLinkDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onConfirm={handleConfirmExternalDownload}
+        url={dataset.file}
+        datasetTitle={dataset.title}
+      />
     </Card>
   );
 }

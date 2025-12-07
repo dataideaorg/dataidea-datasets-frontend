@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { 
-  Container, 
-  Typography, 
-  Box, 
-  CircularProgress, 
+import {
+  Container,
+  Typography,
+  Box,
+  CircularProgress,
   Alert,
   Paper,
   Chip,
@@ -22,7 +22,7 @@ import {
   Tab,
   Link as MuiLink
 } from '@mui/material';
-import { 
+import {
   CloudDownload as DownloadIcon,
   CalendarMonth as CalendarIcon,
   Person as PersonIcon,
@@ -39,6 +39,9 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { fetchDatasetDetails, fetchDatasets, incrementDownload } from '../utils/api';
 import { Dataset } from '../types';
 import DatasetCard from '../components/DatasetCard';
+import ExternalSourceBadge from '../components/ExternalSourceBadge';
+import ExternalLinkDialog from '../components/ExternalLinkDialog';
+import { isExternalLink, detectExternalSource } from '../utils/externalSources';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -75,6 +78,7 @@ function DatasetDetail() {
   const [error, setError] = useState('');
   const [downloadCount, setDownloadCount] = useState(0);
   const [tabValue, setTabValue] = useState(0);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -126,7 +130,27 @@ function DatasetDetail() {
 
   const handleDownload = async () => {
     if (!dataset) return;
-    
+
+    // Show warning dialog for external links
+    if (isExternalLink(dataset.file)) {
+      setDialogOpen(true);
+      return;
+    }
+
+    // Direct download for internal files
+    try {
+      const newCount = await incrementDownload(dataset.slug);
+      setDownloadCount(newCount);
+      window.open(dataset.file, '_blank');
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
+  };
+
+  const handleConfirmExternalDownload = async () => {
+    if (!dataset) return;
+
+    setDialogOpen(false);
     try {
       const newCount = await incrementDownload(dataset.slug);
       setDownloadCount(newCount);
