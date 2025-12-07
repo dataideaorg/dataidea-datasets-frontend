@@ -3,10 +3,10 @@ import { Dataset, Category } from '../types';
 
 // Determine the API base URL based on environment
 const getApiBaseUrl = () => {
-  // If in development, use local API
-  if (import.meta.env.DEV) {
-    return 'http://localhost:8000/api';
-  }
+  // // If in development, use local API
+  // if (import.meta.env.DEV) {
+  //   return 'http://localhost:8000/api';
+  // }
   
   // For GitHub Pages deployment, use the live API
   // Replace this with your actual production API URL when available

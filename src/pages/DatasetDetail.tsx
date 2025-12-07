@@ -41,7 +41,7 @@ import { Dataset } from '../types';
 import DatasetCard from '../components/DatasetCard';
 import ExternalSourceBadge from '../components/ExternalSourceBadge';
 import ExternalLinkDialog from '../components/ExternalLinkDialog';
-import { isExternalLink, detectExternalSource } from '../utils/externalSources';
+import { isExternalLink } from '../utils/externalSources';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -255,6 +255,7 @@ function DatasetDetail() {
                       size="small"
                       color="primary"
                     />
+                    <ExternalSourceBadge url={dataset.file} size="small" variant="outlined" />
                   </Box>
                   
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
@@ -490,6 +491,17 @@ function DatasetDetail() {
           <Alert severity="warning" sx={{ mb: 4 }}>
             Dataset not found.
           </Alert>
+        )}
+
+        {/* External Link Warning Dialog */}
+        {dataset && (
+          <ExternalLinkDialog
+            open={dialogOpen}
+            onClose={() => setDialogOpen(false)}
+            onConfirm={handleConfirmExternalDownload}
+            url={dataset.file}
+            datasetTitle={dataset.title}
+          />
         )}
       </Container>
     </Box>
