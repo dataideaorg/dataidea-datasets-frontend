@@ -96,8 +96,8 @@ function About() {
             About DATAIDEA
           </Typography>
           <Typography variant="h6" sx={{ maxWidth: 800, mx: 'auto', fontWeight: 'normal' }}>
-            Empowering data scientists, researchers, and developers with free, 
-            high-quality datasets for analysis, machine learning, and visualization
+            We teach Programming for Data Science, empowering data scientists, researchers, and developers with free,
+            high-quality learning materials for analysis, machine learning, and visualization
           </Typography>
         </Paper>
 

@@ -176,7 +176,7 @@ function Layout({ children }: LayoutProps) {
               }}
             >
               <DatasetIcon sx={{ mr: 0.5 }} />
-              DI
+              DATAIDEA
             </Typography>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, gap: 2 }}>
               {navItems.map((item) => (
