@@ -110,7 +110,7 @@ export function detectExternalSource(url: string): ExternalSource | null {
     return {
       name: 'External Source',
       domain: hostname,
-      color: '#6B7280',
+      color: '#5A5A5A',
       description: 'External Dataset'
     };
   } catch (error) {

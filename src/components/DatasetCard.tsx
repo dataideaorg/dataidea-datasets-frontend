@@ -169,8 +169,8 @@ function DatasetCard({ dataset }: DatasetCardProps) {
                   key={index} 
                   label={tag.trim()} 
                   size="small" 
-                  sx={{ 
-                    bgcolor: 'rgba(0, 131, 116, 0.1)',
+                  sx={{
+                    bgcolor: 'rgba(61, 61, 61, 0.08)',
                     color: 'primary.main',
                     fontSize: '0.7rem'
                   }} 

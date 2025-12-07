@@ -24,9 +24,9 @@ function HeroSection() {
   };
 
   return (
-    <Box 
-      sx={{ 
-        background: 'linear-gradient(135deg, #008374 0%, #00a89e 100%)',
+    <Box
+      sx={{
+        background: 'linear-gradient(135deg, #3D3D3D 0%, #5A5A5A 100%)',
         color: 'white',
         py: { xs: 8, md: 12 },
         position: 'relative',
@@ -186,7 +186,7 @@ function HeroSection() {
               <rect x="90" y="240" width="150" height="50" rx="8" fill="#e6f7f5" />
               <rect x="260" y="240" width="150" height="50" rx="8" fill="#e6f7f5" />
               <rect x="90" y="310" width="320" height="50" rx="8" fill="#e6f7f5" />
-              <rect x="90" y="380" width="150" height="40" rx="8" fill="#008374" />
+              <rect x="90" y="380" width="150" height="40" rx="8" fill="#3D3D3D" />
             </svg>
           </Box>
         </Box>
