@@ -270,9 +270,9 @@ function DatasetDetail() {
                         color="primary"
                         size="small"
                         sx={{
-                          bgcolor: 'rgba(61, 61, 61, 0.08)',
+                          bgcolor: 'rgba(90, 90, 90, 0.2)',
                           '&:hover': {
-                            bgcolor: 'rgba(61, 61, 61, 0.15)'
+                            bgcolor: 'rgba(90, 90, 90, 0.3)'
                           }
                         }}
                       />
@@ -350,8 +350,8 @@ function DatasetDetail() {
                               to={`/search?q=${encodeURIComponent(tag.trim())}`}
                               clickable
                               sx={{
-                                bgcolor: 'rgba(61, 61, 61, 0.08)',
-                                color: 'primary.main',
+                                bgcolor: 'rgba(90, 90, 90, 0.2)',
+                                color: '#E0E0E0',
                               }} 
                             />
                           )

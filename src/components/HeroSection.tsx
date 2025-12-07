@@ -26,7 +26,7 @@ function HeroSection() {
   return (
     <Box
       sx={{
-        background: 'linear-gradient(135deg, #3D3D3D 0%, #5A5A5A 100%)',
+        background: 'linear-gradient(135deg, #1A1A1A 0%, #3D3D3D 100%)',
         color: 'white',
         py: { xs: 8, md: 12 },
         position: 'relative',

@@ -2,10 +2,11 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
-      main: '#3D3D3D',      // Dark gray
-      light: '#5A5A5A',     // Medium gray
-      dark: '#1A1A1A',      // Almost black
+      main: '#5A5A5A',      // Medium gray
+      light: '#808080',     // Light gray
+      dark: '#3D3D3D',      // Dark gray
       contrastText: '#fff',
     },
     secondary: {
@@ -15,12 +16,12 @@ const theme = createTheme({
       contrastText: '#fff',
     },
     background: {
-      default: '#f5f5f5',   // Very light gray background
-      paper: '#ffffff',     // White paper
+      default: '#1A1A1A',   // Almost black background
+      paper: '#2A2A2A',     // Dark gray for paper/cards
     },
     text: {
-      primary: '#1A1A1A',   // Almost black for primary text
-      secondary: '#5A5A5A', // Medium gray for secondary text
+      primary: '#E0E0E0',   // Light gray for primary text
+      secondary: '#9E9E9E', // Medium gray for secondary text
     },
   },
   typography: {
