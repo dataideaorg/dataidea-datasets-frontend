@@ -179,13 +179,13 @@ function HeroSection() {
               xmlns="http://www.w3.org/2000/svg"
               style={{ width: '100%', height: 'auto' }}
             >
-              <rect x="70" y="60" width="360" height="380" rx="15" fill="#FFFFFF" />
-              <rect x="90" y="100" width="320" height="50" rx="8" fill="#66fdee" />
-              <rect x="90" y="170" width="150" height="50" rx="8" fill="#e6f7f5" />
-              <rect x="260" y="170" width="150" height="50" rx="8" fill="#e6f7f5" />
-              <rect x="90" y="240" width="150" height="50" rx="8" fill="#e6f7f5" />
-              <rect x="260" y="240" width="150" height="50" rx="8" fill="#e6f7f5" />
-              <rect x="90" y="310" width="320" height="50" rx="8" fill="#e6f7f5" />
+              <rect x="70" y="60" width="360" height="380" rx="15" fill="#E0E0E0" />
+              <rect x="90" y="100" width="320" height="50" rx="8" fill="#5A5A5A" />
+              <rect x="90" y="170" width="150" height="50" rx="8" fill="#9E9E9E" />
+              <rect x="260" y="170" width="150" height="50" rx="8" fill="#9E9E9E" />
+              <rect x="90" y="240" width="150" height="50" rx="8" fill="#9E9E9E" />
+              <rect x="260" y="240" width="150" height="50" rx="8" fill="#9E9E9E" />
+              <rect x="90" y="310" width="320" height="50" rx="8" fill="#9E9E9E" />
               <rect x="90" y="380" width="150" height="40" rx="8" fill="#3D3D3D" />
             </svg>
           </Box>

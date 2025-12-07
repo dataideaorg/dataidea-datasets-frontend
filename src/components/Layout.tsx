@@ -55,8 +55,8 @@ function Layout({ children }: LayoutProps) {
   ];
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Typography variant="h6" sx={{ my: 2, color: 'primary.main', fontWeight: 'bold', fontFamily: 'DM Sans, sans-serif' }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', bgcolor: '#2A2A2A' }}>
+      <Typography variant="h6" sx={{ my: 2, color: '#E0E0E0', fontWeight: 'bold', fontFamily: 'DM Sans, sans-serif' }}>
         DATAIDEA
       </Typography>
       
@@ -77,7 +77,7 @@ function Layout({ children }: LayoutProps) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton type="submit" edge="end" color="primary">
+                  <IconButton type="submit" edge="end" sx={{ color: '#5A5A5A' }}>
                     <SearchIcon />
                   </IconButton>
                 </InputAdornment>
@@ -90,22 +90,23 @@ function Layout({ children }: LayoutProps) {
       <List sx={{ flexGrow: 1 }}>
         {navItems.map((item) => (
           <ListItem key={item.name} disablePadding>
-            <ListItemButton 
+            <ListItemButton
               component={Link}
               to={item.path}
-              sx={{ 
+              sx={{
                 textAlign: 'center',
+                color: '#E0E0E0',
                 '&:hover': {
-                  bgcolor: 'primary.light',
-                  color: 'primary.main',
+                  bgcolor: '#3D3D3D',
+                  color: '#9E9E9E',
                 },
                 py: 1.5,
               }}
             >
               <Box sx={{ mr: 1 }}>{item.icon}</Box>
-              <ListItemText 
-                primary={item.name} 
-                primaryTypographyProps={{ 
+              <ListItemText
+                primary={item.name}
+                primaryTypographyProps={{
                   fontFamily: 'DM Sans, sans-serif',
                   fontWeight: 500
                 }}
@@ -132,15 +133,14 @@ function Layout({ children }: LayoutProps) {
       width: '100%',
       overflow: 'hidden',
     }}>
-      <AppBar position="sticky" sx={{ bgcolor: 'white', boxShadow: 1 }}>
+      <AppBar position="sticky" sx={{ bgcolor: '#2A2A2A', boxShadow: 3 }}>
         <Container maxWidth="xl">
           <Toolbar sx={{ px: { xs: 1, sm: 2 } }}>
             <IconButton
-              color="primary"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 1, display: { md: 'none' } }}
+              sx={{ mr: 1, display: { md: 'none' }, color: '#E0E0E0' }}
             >
               <MenuIcon />
             </IconButton>
@@ -153,7 +153,7 @@ function Layout({ children }: LayoutProps) {
                 display: { xs: 'none', sm: 'flex' },
                 fontWeight: 700,
                 fontFamily: 'DM Sans, sans-serif',
-                color: 'primary.main',
+                color: '#E0E0E0',
                 textDecoration: 'none',
                 alignItems: 'center'
               }}
@@ -170,7 +170,7 @@ function Layout({ children }: LayoutProps) {
                 display: { xs: 'flex', sm: 'none' },
                 fontWeight: 700,
                 fontFamily: 'DM Sans, sans-serif',
-                color: 'primary.main',
+                color: '#E0E0E0',
                 textDecoration: 'none',
                 alignItems: 'center'
               }}
@@ -180,17 +180,17 @@ function Layout({ children }: LayoutProps) {
             </Typography>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, gap: 2 }}>
               {navItems.map((item) => (
-                <Button 
+                <Button
                   key={item.name}
                   component={Link}
                   to={item.path}
                   startIcon={item.icon}
-                  sx={{ 
-                    color: 'text.primary',
+                  sx={{
+                    color: '#E0E0E0',
                     fontFamily: 'DM Sans, sans-serif',
                     '&:hover': {
                       bgcolor: 'transparent',
-                      color: 'primary.main',
+                      color: '#9E9E9E',
                     }
                   }}
                 >
@@ -221,7 +221,7 @@ function Layout({ children }: LayoutProps) {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton type="submit" edge="end" color="primary">
+                      <IconButton type="submit" edge="end" sx={{ color: '#5A5A5A' }}>
                         <SearchIcon />
                       </IconButton>
                     </InputAdornment>
@@ -232,8 +232,7 @@ function Layout({ children }: LayoutProps) {
             
             {/* Search icon for mobile */}
             <IconButton
-              color="primary"
-              sx={{ display: { sm: 'none' } }}
+              sx={{ display: { sm: 'none' }, color: '#E0E0E0' }}
               onClick={handleDrawerToggle}
             >
               <SearchIcon />
