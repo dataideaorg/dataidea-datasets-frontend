@@ -21,12 +21,11 @@ import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
 import DatasetCard from '../components/DatasetCard';
 import CourseCard from '../components/CourseCard';
-import { fetchFeaturedDatasets, fetchRecentDatasets, fetchCourses } from '../utils/api';
+import { fetchFeaturedDatasets, fetchCourses } from '../utils/api';
 import { Dataset, Course } from '../types';
 
 function Home() {
   const [featuredDatasets, setFeaturedDatasets] = useState<Dataset[]>([]);
-  const [recentDatasets, setRecentDatasets] = useState<Dataset[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,12 +37,8 @@ function Home() {
       setIsLoading(true);
       setError('');
       try {
-        const [featured, recent] = await Promise.all([
-          fetchFeaturedDatasets(),
-          fetchRecentDatasets()
-        ]);
+        const featured = await fetchFeaturedDatasets();
         setFeaturedDatasets(featured);
-        setRecentDatasets(recent);
       } catch (err) {
         console.error('Error loading datasets:', err);
         setError('Failed to load datasets. Please try again later.');
