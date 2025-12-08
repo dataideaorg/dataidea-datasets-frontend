@@ -104,11 +104,11 @@ function CourseCard({ course }: CourseCardProps) {
         </Box>
       </CardContent>
 
-      <CardActions>
-        {course.free_resources_link ? (
+      <CardActions sx={{ display: 'flex', gap: 1, px: 2, pb: 2 }}>
+        {course.free_resources_link && (
           <Button
             size="small"
-            variant="contained"
+            variant="outlined"
             color="primary"
             startIcon={<ResourcesIcon />}
             href={course.free_resources_link}
@@ -116,19 +116,21 @@ function CourseCard({ course }: CourseCardProps) {
             rel="noopener noreferrer"
             fullWidth
           >
-            Free Resources
-          </Button>
-        ) : (
-          <Button
-            size="small"
-            variant="outlined"
-            color="primary"
-            fullWidth
-            disabled
-          >
-            Coming Soon
+            Resources
           </Button>
         )}
+        <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          startIcon={<EnrollIcon />}
+          href="https://forms.gle/usTT5nm6HaZT1V2cA"
+          target="_blank"
+          rel="noopener noreferrer"
+          fullWidth
+        >
+          Enroll Now
+        </Button>
       </CardActions>
     </Card>
   );
