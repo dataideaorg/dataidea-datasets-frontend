@@ -1,5 +1,7 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
+import ReactGA from 'react-ga4';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Datasets from './pages/Datasets';
@@ -10,11 +12,26 @@ import DatasetDetail from './pages/DatasetDetail';
 import theme from './utils/theme';
 import './App.css';
 
+// Initialize Google Analytics
+ReactGA.initialize('G-ZD84FCME05');
+
+function Analytics() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Track page view on route change
+    ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
+  }, [location]);
+
+  return null;
+}
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
+        <Analytics />
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
