@@ -108,15 +108,21 @@ function CourseCard({ course }: CourseCardProps) {
         {course.free_resources_link && (
           <Button
             size="small"
-            variant="outlined"
-            color="primary"
+            variant="contained"
             startIcon={<ResourcesIcon />}
             href={course.free_resources_link}
             target="_blank"
             rel="noopener noreferrer"
             fullWidth
+            sx={{
+              bgcolor: 'white',
+              color: 'black',
+              '&:hover': {
+                bgcolor: 'rgba(255, 255, 255, 0.9)',
+              }
+            }}
           >
-            Resources
+            Free Resources
           </Button>
         )}
         <Button
