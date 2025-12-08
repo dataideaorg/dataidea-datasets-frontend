@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Dataset, Category } from '../types';
+import { Dataset, Category, Course } from '../types';
 
 // Determine the API base URL based on environment
 const getApiBaseUrl = () => {
@@ -54,6 +54,11 @@ export const fetchCategories = async (): Promise<Category[]> => {
 
 export const searchDatasets = async (query: string): Promise<Dataset[]> => {
   const response = await api.get(`/datasets/?search=${query}`);
+  return response.data;
+};
+
+export const fetchCourses = async (): Promise<Course[]> => {
+  const response = await axios.get('https://api.dataidea.org/school/courses');
   return response.data;
 };
 

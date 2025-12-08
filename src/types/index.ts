@@ -29,4 +29,17 @@ export interface Dataset {
   download_count: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface Course {
+  id: number;
+  title: string;
+  description: string;
+  duration: string;
+  level: string;
+  skills: string[];
+  free_resources_link: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 } 

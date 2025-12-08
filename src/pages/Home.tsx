@@ -20,14 +20,18 @@ import {
 import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
 import DatasetCard from '../components/DatasetCard';
-import { fetchFeaturedDatasets, fetchRecentDatasets } from '../utils/api';
-import { Dataset } from '../types';
+import CourseCard from '../components/CourseCard';
+import { fetchFeaturedDatasets, fetchRecentDatasets, fetchCourses } from '../utils/api';
+import { Dataset, Course } from '../types';
 
 function Home() {
   const [featuredDatasets, setFeaturedDatasets] = useState<Dataset[]>([]);
   const [recentDatasets, setRecentDatasets] = useState<Dataset[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [coursesLoading, setCoursesLoading] = useState(true);
+  const [coursesError, setCoursesError] = useState('');
 
   useEffect(() => {
     const loadData = async () => {
@@ -49,6 +53,24 @@ function Home() {
     };
 
     loadData();
+  }, []);
+
+  useEffect(() => {
+    const loadCourses = async () => {
+      setCoursesLoading(true);
+      setCoursesError('');
+      try {
+        const coursesData = await fetchCourses();
+        setCourses(coursesData);
+      } catch (err) {
+        console.error('Error loading courses:', err);
+        setCoursesError('Failed to load courses. Please try again later.');
+      } finally {
+        setCoursesLoading(false);
+      }
+    };
+
+    loadCourses();
   }, []);
 
   const features = [
@@ -142,44 +164,45 @@ function Home() {
           </div>
         )}
       </Container>
-      
+
       <Divider />
-      
-      {/* Recent Datasets Section */}
+
+      {/* Courses Section */}
       <Container maxWidth="lg" sx={{ mt: 8, mb: 8 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
           <Typography variant="h4" component="h2" fontWeight="bold">
-            Recently Added
+            Learn with Our Courses
           </Typography>
-          <Button 
-            component={Link} 
-            to="/datasets" 
+          <Button
+            href="https://science.dataidea.org/"
+            target="_blank"
+            rel="noopener noreferrer"
             color="primary"
             endIcon={<NavigateNextIcon />}
           >
-            View All
+            View All Courses
           </Button>
         </Box>
-        
-        {isLoading ? (
+
+        {coursesLoading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
             <CircularProgress />
           </Box>
-        ) : error ? (
+        ) : coursesError ? (
           <Alert severity="error" sx={{ mb: 4 }}>
-            {error}
+            {coursesError}
           </Alert>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {recentDatasets.map((dataset) => (
-              <div key={dataset.id}>
-                <DatasetCard dataset={dataset} />
+            {courses.map((course) => (
+              <div key={course.id}>
+                <CourseCard course={course} />
               </div>
             ))}
           </div>
         )}
       </Container>
-      
+
       {/* CTA Section */}
       <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 8, textAlign: 'center' }}>
         <Container maxWidth="md">
