@@ -1,15 +1,14 @@
 import axios from 'axios';
 import { Dataset, Category, Course } from '../types';
 
-// Determine the API base URL based on environment
+// Baked in at image build time (see frontend Dockerfile / VITE_API_URL).
 const getApiBaseUrl = () => {
-  // // If in development, use local API
-  // if (import.meta.env.DEV) {
-  //   return 'http://localhost:8000/api';
-  // }
-  
-  // For GitHub Pages deployment, use the live API
-  // Replace this with your actual production API URL when available
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  if (import.meta.env.DEV) {
+    return 'http://localhost:8000/api';
+  }
   return 'https://datasets.api.dataidea.org/api';
 };
 

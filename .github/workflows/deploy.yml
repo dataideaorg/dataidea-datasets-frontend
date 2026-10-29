@@ -1,36 +1,32 @@
-name: Deploy to GitHub Pages
+name: Deploy frontend
 
 on:
   push:
-    branches:
-      - master
-      - main
-      - pro
+    branches: [master, main]
 
-permissions:
-  contents: write
+concurrency:
+  group: deploy-frontend
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H 217.76.49.201 >> ~/.ssh/known_hosts
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: datasets.dataidea.org 
+      - name: Sync and rebuild
+        run: |
+          rsync -az --delete \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '.gitignore' \
+            ./ root@217.76.49.201:/opt/apps/datasets/frontend/
+          ssh root@217.76.49.201 'cd /opt/apps/datasets && docker compose up -d --build frontend'

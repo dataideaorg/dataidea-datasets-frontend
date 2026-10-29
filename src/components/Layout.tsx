@@ -240,6 +240,63 @@ function Layout({ children }: LayoutProps) {
           </Toolbar>
         </Container>
       </AppBar>
+      <Box
+        sx={{
+          bgcolor: 'white',
+          py: 2,
+          px: { xs: 2, sm: 3 },
+          textAlign: 'center',
+          borderBottom: '1px solid rgba(0,0,0,0.08)',
+        }}
+      >
+        <Box
+          sx={{
+            maxWidth: 1200,
+            mx: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: 2,
+          }}
+        >
+          <Typography
+            component="span"
+            sx={{
+              color: '#555',
+              fontSize: 16,
+              fontWeight: 500,
+              fontFamily: 'DM Sans, sans-serif',
+            }}
+          >
+            Next intake is <Box component="strong" sx={{ fontWeight: 700 }}>September 15, 2026</Box>!
+          </Typography>
+          <Button
+            component="a"
+            href="https://forms.gle/CPL4Rs2pmuR4yToKA"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              bgcolor: '#555',
+              color: 'white',
+              px: 3,
+              py: 0.75,
+              borderRadius: 1.5,
+              textTransform: 'none',
+              fontWeight: 600,
+              fontSize: 14,
+              fontFamily: 'DM Sans, sans-serif',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              '&:hover': {
+                bgcolor: '#444',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+              },
+            }}
+          >
+            Enroll Now →
+          </Button>
+        </Box>
+      </Box>
       <Box component="nav">
         <Drawer
           variant="temporary"
